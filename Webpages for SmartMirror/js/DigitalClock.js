@@ -3,7 +3,7 @@
 //     digitalclockFunction();
 // }, false);
 
-function digitalclockFunction() {
+function showDigitalClock() {
     var dt = new Date() // DATE() CONSTRUCTOR FOR CURRENT SYSTEM DATE AND TIME.
     var hrs = dt.getHours();
     var min = dt.getMinutes();

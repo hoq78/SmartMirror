@@ -3,7 +3,7 @@
 // }, false);
 
 
-function showClock() {
+function showAnalogueClock() {
     var canvas = document.getElementById('canvas');
     var ctx = canvas.getContext('2d');
     var date = new Date();
@@ -18,7 +18,7 @@ function showClock() {
     showMinutes();
     showHours();
 
-    time = setInterval(showClock, 1000);
+    time = setTimeout(showAnalogueClock, 1000);
 
     function centerDial() {
         ctx.beginPath();
@@ -104,4 +104,4 @@ function showClock() {
         ctx.stroke();
     }
 
-};
+}

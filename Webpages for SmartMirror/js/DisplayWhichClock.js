@@ -7,10 +7,10 @@ function whichClock() {
     if (config.timeFormat === "digital") {
         $("#digital").css("display", "block");
         $("#analogue").css("display", "none");
-        digitalclockFunction();
+        showDigitalClock();
     } else if (config.timeFormat === "analogue" || config.timeFormat === "analog") {
         $("#analogue").css("display", "block");
         $("#digital").css("display", "none");
-        showClock();
+        showAnalogueClock();
     }
 }

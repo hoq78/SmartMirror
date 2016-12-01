@@ -14,7 +14,6 @@ news.getNews = function() {
         url: "https://api.rss2json.com/v1/api.json?rss_url=http%3A%2F%2Ffeeds.bbci.co.uk%2Fnews%2Frss.xml",
         // url: "https://api.rss2json.com/v1/api.json?rss_url=http%3A%2F%2Ffeeds.skynews.com%2Ffeeds%2Frss%2Fhome.xml",
         success: function(data) {
-            console.log(data);
             var counter = 1;
             const numberOfArticles = data.items.length;
 
@@ -28,7 +27,6 @@ news.getNews = function() {
             }
 
             function changeNewsContent() {
-                console.log(counter);
                 $('#newsHeadlines').fadeOut(() => {
                     $("#newsHeadlines").html(getContent(counter));
                     $("#newsHeadlines").fadeIn(() => {
