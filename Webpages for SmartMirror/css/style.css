@@ -12,14 +12,6 @@ body, html {
     text-rendering: geometricprecision;
 }
 
-pre {
-    background: #000000;
-    color: #fff;
-    position: absolute;
-    top: 50%;
-    width: 100%;
-}
-
 .tabBlock {
     background-color: rgba(0, 0, 0, 0);
     border: solid 0px #000000;
@@ -163,4 +155,21 @@ pre {
     font-size: 40px;
     display: flex;
     align-items: middle;
+}
+
+.calendarEvents {
+    position: absolute;
+    top: 500px;
+    left: 50px;
+    font-size: 25px;
+    display: flex;
+    align-items: middle;
+}
+
+.nextEvent {
+    position: relative;
+}
+
+.nextEventDateAndTime {
+    position: relative;
 }

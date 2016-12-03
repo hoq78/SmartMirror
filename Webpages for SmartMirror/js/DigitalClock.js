@@ -1,4 +1,3 @@
-// OUR FUNCTION WHICH IS EXECUTED ON LOAD OF THE PAGE.
 // document.addEventListener('DOMContentLoaded', function() {
 //     digitalclockFunction();
 // }, false);
