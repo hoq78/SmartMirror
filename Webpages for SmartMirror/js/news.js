@@ -42,7 +42,6 @@ news.getNews = function() {
         success: function(data) {
             counter = 0;
             newsData = data.items;
-            console.log(newsData);
             if( newsInterval == null){
                   changeNewsContent()
                   newsInterval = setInterval(changeNewsContent,1000*6);

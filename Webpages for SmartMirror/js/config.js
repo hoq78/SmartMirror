@@ -1,6 +1,6 @@
 var config = {
     lang: 'en',
-    timeFormat: 'analogue',
+    timeFormat: 'digital',
     weather: {
         weatherAPIKey: 'ea3f8ebe279a4e080459a706e2133180',
         units: 'metric',
