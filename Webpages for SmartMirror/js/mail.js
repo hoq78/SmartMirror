@@ -6,6 +6,7 @@
 
 var CLIENT_ID = '338294178289-fdhuk9lqmgaatll67u30j9675t7mtpto.apps.googleusercontent.com';
 var SCOPES = ['https://www.googleapis.com/auth/gmail.readonly'];
+var intervalHandle = null;
 
 /**
  * Check if current user has authorized this application.
@@ -24,11 +25,13 @@ function checkAuth() {
  * @param {Object} authResult Authorization result.
  */
 function handleAuthResult(authResult) {
+  console.log()
     var authorizeDiv = document.getElementById('authorize-div');
     if (authResult && !authResult.error) {
         // Hide auth UI, then load client library.
         authorizeDiv.style.display = 'none';
         loadGmailApi();
+        registerInboxInterval(1000*60*5);
     } else {
         // Show auth UI, allowing the user to initiate authorization by
         // clicking authorize button.
@@ -55,7 +58,15 @@ function handleAuthClick(event) {
  * Load Gmail API client library. List labels once client library
  * is loaded.
  */
+function registerInboxInterval(x){
+  if(intervalHandle){
+    clearInterval(intervalHandle);
+  }
+  intervalHandle = setInterval(inboxCount, x);
+}
+
 function loadGmailApi() {
+      console.log("loadapi");
     // gapi.client.load('gmail', 'v1', listLabels);
     gapi.client.load('gmail', 'v1', inboxCount);
 }
@@ -64,49 +75,12 @@ function loadGmailApi() {
 function inboxCount() {
     var request = gapi.client.gmail.users.labels.get({
         'userId': 'me',
-        'id': 'INBOX',
+        'id': config.mail.whichInboxCount,
     });
     request.execute(function(resp) {
+      console.log(resp);
         noOfUnreadEmails = resp.messagesUnread;
-        console.log(noOfUnreadEmails);
         $('#inboxCountNumber').html(noOfUnreadEmails);
-        var loop = setInterval(checkAuth, 300000);
     });
 
-}
-/**
- * Print all Labels in the authorized user's inbox. If no labels
- * are found an appropriate message is printed.
- */
-function listLabels() {
-
-    var request = gapi.client.gmail.users.labels.list({
-        'userId': 'me',
-    });
-
-    request.execute(function(resp) {
-        var labels = resp.labels;
-        appendPre('Labels:');
-
-        if (labels && labels.length > 0) {
-            for (i = 0; i < labels.length; i++) {
-                var label = labels[i];
-                appendPre(label.name)
-            }
-        } else {
-            appendPre('No Labels found.');
-        }
-    });
-}
-
-/**
- * Append a pre element to the body containing the given message
- * as its text node.
- *
- * @param {string} message Text to be placed in pre element.
- */
-function appendPre(message) {
-    var pre = document.getElementById('output');
-    var textContent = document.createTextNode(message + '\n');
-    pre.appendChild(textContent);
 }

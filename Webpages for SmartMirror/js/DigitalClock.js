@@ -18,7 +18,7 @@ function showDigitalClock() {
     var time;
 
     // CALL THE FUNCTION EVERY 1 SECOND RECURSIVLY
-    time = setTimeout('digitalclockFunction()', 1000);
+    time = setTimeout('showDigitalClock()', 1000);
 }
 
 function Ticking(ticVal) {

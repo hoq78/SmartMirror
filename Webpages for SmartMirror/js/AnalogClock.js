@@ -9,7 +9,7 @@ function showAnalogueClock() {
     var date = new Date();
     var angle;
     var secHandLength = 150;
-
+    console.log("tick");
     //Clear Everything and Re-Draw every second
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     markHours();

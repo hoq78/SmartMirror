@@ -52,6 +52,7 @@ function handleAuthClick(event) {
  * Load Google Calendar client library. List upcoming events
  * once client library is loaded.
  */
+
 function loadCalendarApi() {
     gapi.client.load('calendar', 'v3', showNextEvent);
 }
@@ -67,6 +68,7 @@ function showNextEvent() {
     });
 
     request.execute(function(resp) {
+      console.log("news event");
         var events = resp.items,
             nextEvent = events[0],
             when = nextEvent.start.dateTime;
@@ -79,4 +81,5 @@ function showNextEvent() {
         $('#nextEventDateAndTime').html(time + " " + date);
         $('#nextEventLocation').html(nextEvent.location);
     });
+    setTimeout(showNextEvent,30000);
 }

@@ -31,6 +31,7 @@
 	<div id="date"></div>
 
 	<div class="top-right">
+		<!-- This is where the clock widgets are shown and hidden dependant on the config file -->
 		<div id="digital">
 			<table class="tabBlock" align="right">
 				<tr>
@@ -45,6 +46,7 @@
 	</div>
 
 	<div class="top-left">
+		<!-- this is where the weather widget is shown -->
 		<table class="weatherBlock" align="left">
 			<tr>
 				<td id="weatherIcon">
@@ -62,6 +64,7 @@
 	</div>
 	<div id="newsHeadlines"></div>
 	<div id="authorize-div" style="display: none">
+		<!-- Google authorization Div if the account is not already authorized, assuming it is -->
 		<span>Authorize access to Gmail API</span>
 		<!--Button for the user to click to initiate auth sequence -->
 		<button id="authorize-button" onclick="handleAuthClick(event)">
@@ -69,11 +72,13 @@
 		</button>
 	</div>
 	<div id='mailCounter'>
+		<!-- The email counter for the current inbox count -->
 		<i class="fa fa-envelope-o" aria-hidden="true"></i>
 		<span class="badge" id="inboxCountNumber"></span>
 	</div>
 
 	<div class='calendarEvents'>
+		<!-- The recent Event module is shown here -->
 		<table>
 			<tr>
 				<td>Upcoming Events:</td>
@@ -91,7 +96,6 @@
 	</div>
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-	<!--<script src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>-->
 	<script src="https://apis.google.com/js/client.js?onload=checkAuth"></script>
 	<!-- Include all compiled plugins (below), or include individual files as needed -->
 	<script src="js/bootstrap.min.js"></script>
