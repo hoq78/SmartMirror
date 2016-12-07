@@ -5,7 +5,7 @@ var newsData = null;
 var counter = null;
 
 document.addEventListener('DOMContentLoaded', function() {
-    news.getNews();
+    news.getNews(news.detailPage);
 }, false);
 
 var news = {
@@ -22,6 +22,7 @@ function changeNewsContent() {
     if( newsData == null){
       return;
     }
+    console.log(newsData);
     $('#newsHeadlines').fadeOut(() => {
         $("#newsHeadlines").html(getContent(counter));
         $("#newsHeadlines").fadeIn(() => {
@@ -34,18 +35,40 @@ function changeNewsContent() {
     }
 }
 
-news.getNews = function() {
+function changeNewsContentLarge(){
+
+}
+
+news.getNews = function(callback) {
     $.ajax({
         type: 'GET',
         url: "https://api.rss2json.com/v1/api.json?rss_url=http%3A%2F%2Ffeeds.bbci.co.uk%2Fnews%2Frss.xml",
         // url: "https://api.rss2json.com/v1/api.json?rss_url=http%3A%2F%2Ffeeds.skynews.com%2Ffeeds%2Frss%2Fhome.xml",
         success: function(data) {
-            counter = 0;
             newsData = data.items;
-            if( newsInterval == null){
-                  changeNewsContent()
-                  newsInterval = setInterval(changeNewsContent,1000*6);
+            callback();
             }
-        }
     });
-};
+}
+
+news.mainPage = function(){
+  counter = 0;
+  news.getNews();
+  changeNewsContent();
+  if(newsInterval==null){
+    changeNewsContent()
+    newsInterval = setInterval(changeNewsContent,1000*6);
+  }
+}
+
+news.detailPage = function(){
+  var table = document.getElementById('newsTable');
+  for(i=0; i < news.numberOfArticles;i++){
+    item = "item" + i.toString();
+    var tr = table.insertRow();
+    var td = tr.insertCell();
+    td.id = item;
+    newsToDisplay = newsData[i].title;
+    $("#"+item).html(newsToDisplay);
+  }
+}
