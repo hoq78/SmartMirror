@@ -25,7 +25,6 @@ function checkAuth() {
  * @param {Object} authResult Authorization result.
  */
 function handleAuthResult(authResult) {
-  console.log()
     var authorizeDiv = document.getElementById('authorize-div');
     if (authResult && !authResult.error) {
         // Hide auth UI, then load client library.
@@ -66,7 +65,6 @@ function registerInboxInterval(x){
 }
 
 function loadGmailApi() {
-      console.log("loadapi");
     // gapi.client.load('gmail', 'v1', listLabels);
     gapi.client.load('gmail', 'v1', inboxCount);
 }
@@ -78,7 +76,6 @@ function inboxCount() {
         'id': config.mail.whichInboxCount,
     });
     request.execute(function(resp) {
-      console.log(resp);
         noOfUnreadEmails = resp.messagesUnread;
         $('#inboxCountNumber').html(noOfUnreadEmails);
     });

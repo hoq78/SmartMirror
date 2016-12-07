@@ -68,7 +68,6 @@ function showNextEvent() {
     });
 
     request.execute(function(resp) {
-      console.log("news event");
         var events = resp.items,
             nextEvent = events[0],
             when = nextEvent.start.dateTime;

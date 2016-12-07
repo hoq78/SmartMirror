@@ -22,7 +22,6 @@ function changeNewsContent() {
     if( newsData == null){
       return;
     }
-    console.log(newsData);
     $('#newsHeadlines').fadeOut(() => {
         $("#newsHeadlines").html(getContent(counter));
         $("#newsHeadlines").fadeIn(() => {
@@ -53,7 +52,6 @@ news.getNews = function(callback) {
 
 news.mainPage = function(){
   counter = 0;
-  news.getNews();
   changeNewsContent();
   if(newsInterval==null){
     changeNewsContent()
@@ -65,10 +63,13 @@ news.detailPage = function(){
   var table = document.getElementById('newsTable');
   for(i=0; i < news.numberOfArticles;i++){
     item = "item" + i.toString();
-    var tr = table.insertRow();
-    var td = tr.insertCell();
-    td.id = item;
+    var newsHeadline = table.insertRow();
+    var headline = newsHeadline.insertCell();
+    headline.id = item;
+    var content = newsHeadline.insertCell();
+    content.id = item+"content"
     newsToDisplay = newsData[i].title;
     $("#"+item).html(newsToDisplay);
+    $("#"+item+"content").html(newsData[i].content);
   }
 }
