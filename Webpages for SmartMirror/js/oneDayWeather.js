@@ -1,6 +1,6 @@
-document.addEventListener('DOMContentLoaded', function() {
-    weather.updateCurrentWeather();
-}, false);
+// document.addEventListener('DOMContentLoaded', function() {
+//     weather.updateCurrentWeather();
+// }, false);
 
 var weather = {
         lang: config.lang || 'en',

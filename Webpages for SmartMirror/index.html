@@ -18,6 +18,13 @@
 	<script src="js/config.js"></script>
 	<script src="js/mail.js"></script>
 	<script src="js/calendar.js"></script>
+	<script src="js/DigitalClock.js"></script>
+	<script src="js/AnalogClock.js"></script>
+	<script src="js/DisplayDate.js"></script>
+	<script src="js/oneDayWeather.js"></script>
+	<script src="js/DisplayWhichClock.js"></script>
+	<script src="js/news.js"></script>
+	<script src="js/main.js"></script>
 
 	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -27,7 +34,7 @@
 		<![endif]-->
 </head>
 
-<body onload="checkCalAuth()">
+<body onload="mainPage()">
 	<div id="date"></div>
 
 	<div class="top-right">
@@ -42,6 +49,11 @@
 		</div>
 		<div id="analogue">
 			<canvas id="canvas" height="350" width="350"></canvas>
+		</div>
+		<div id='mailCounter'>
+			<!-- The email counter for the current inbox count -->
+			<i class="fa fa-envelope-o" aria-hidden="true"></i>
+			<span class="badge" id="inboxCountNumber"></span>
 		</div>
 	</div>
 
@@ -71,11 +83,7 @@
 			Authorize
 		</button>
 	</div>
-	<div id='mailCounter'>
-		<!-- The email counter for the current inbox count -->
-		<i class="fa fa-envelope-o" aria-hidden="true"></i>
-		<span class="badge" id="inboxCountNumber"></span>
-	</div>
+
 
 	<div class='calendarEvents'>
 		<!-- The recent Event module is shown here -->
@@ -96,15 +104,10 @@
 	</div>
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-	<script src="https://apis.google.com/js/client.js?onload=checkAuth"></script>
+	<script src="https://apis.google.com/js/client.js"></script>
 	<!-- Include all compiled plugins (below), or include individual files as needed -->
 	<script src="js/bootstrap.min.js"></script>
-	<script src="js/DigitalClock.js"></script>
-	<script src="js/AnalogClock.js"></script>
-	<script src="js/DisplayDate.js"></script>
-	<script src="js/oneDayWeather.js"></script>
-	<script src="js/DisplayWhichClock.js"></script>
-	<script src="js/news.js"></script>
+
 
 </body>
 

@@ -1,6 +1,6 @@
-document.addEventListener('DOMContentLoaded', function() {
-    getDate();
-}, false);
+// document.addEventListener('DOMContentLoaded', function() {
+//     getDate();
+// }, false);
 
 function getDate() {
     var date = new Date();
@@ -15,7 +15,7 @@ function getDate() {
     day = daysInTheWeek[daynumber];
     month = monthsInYear[month - 1];
     let dateOut = day + " " + dateOfMonth + " " + month + " " + year;
-    $("#date").append(dateOut);
+    $("#date").html(dateOut);
     //document.getElementById('date').innerHTML = day + ":" + daynumber + ":" + month+ ":" + year ;
 
 }

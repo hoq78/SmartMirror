@@ -4,9 +4,9 @@ var newsInterval = null;
 var newsData = null;
 var counter = null;
 
-document.addEventListener('DOMContentLoaded', function() {
-    news.getNews(news.detailPage);
-}, false);
+// document.addEventListener('DOMContentLoaded', function() {
+//     news.getNews(news.mainPage);
+// }, false);
 
 var news = {
     numberOfArticles: config.news.numberOfArticles,
