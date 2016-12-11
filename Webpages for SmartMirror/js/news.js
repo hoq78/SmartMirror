@@ -34,9 +34,6 @@ function changeNewsContent() {
     }
 }
 
-function changeNewsContentLarge(){
-
-}
 
 news.getNews = function(callback) {
     $.ajax({
@@ -62,14 +59,18 @@ news.mainPage = function(){
 news.detailPage = function(){
   var table = document.getElementById('newsTable');
   for(i=0; i < news.numberOfArticles;i++){
-    item = "item" + i.toString();
+    var item = "item" + i.toString();
     var newsHeadline = table.insertRow();
     var headline = newsHeadline.insertCell();
     headline.id = item;
-    var content = newsHeadline.insertCell();
-    content.id = item+"content"
-    newsToDisplay = newsData[i].title;
-    $("#"+item).html(newsToDisplay);
-    $("#"+item+"content").html(newsData[i].content);
+    document.getElementById(headline.id).className = 'HeadlineRow';
+    var newsContent = table.insertRow();
+    var content = newsContent.insertCell();
+    content.id = item+"content";
+    document.getElementById(content.id).className = 'ContentRow';
+    newsHeadlineVar = newsData[i].title;
+    newsContentVar = newsData[i].content;
+    $("#"+item).html(newsHeadlineVar);
+    $("#"+item+"content").html(newsContentVar);
   }
 }

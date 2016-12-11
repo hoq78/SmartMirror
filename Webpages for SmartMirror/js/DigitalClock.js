@@ -11,8 +11,8 @@ function showDigitalClock() {
     min = Ticking(min); //pads the time to 2 digits when the time is less than 2 digits long
     sec = Ticking(sec);
 
-    document.getElementById('dc').innerHTML = hrs + ":" + min;
-    document.getElementById('dc_second').innerHTML = sec;
+    $("#dc_second").html(sec);
+    $('#dc').html(hrs + ':' + min);
 
 
     var time;

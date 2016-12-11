@@ -6,3 +6,10 @@ function mainPage(){
   news.getNews(news.mainPage);
   weather.updateCurrentWeather();
 }
+
+function newsPage(){
+    showDigitalClock();
+    getDate();
+    news.getNews(news.detailPage);
+    scrollDiv_init();
+}

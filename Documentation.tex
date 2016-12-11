@@ -1,0 +1,133 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[a4paper]{geometry}
+\usepackage[myheadings]{fullpage}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{graphicx, wrapfig, subcaption, setspace, booktabs}
+\usepackage[T1]{fontenc}
+\usepackage[font=small, labelfont=sf]{caption}
+\usepackage{fourier}
+\usepackage[protrusion=true, expansion=true]{microtype}
+\usepackage[english]{babel}
+\usepackage{sectsty}
+\usepackage{url, lipsum}
+\renewcommand{\familydefault}{\sfdefault}
+
+
+\newcommand{\HRule}[1]{\rule{\linewidth}{#1}}
+\onehalfspacing
+\setcounter{tocdepth}{5}
+\setcounter{secnumdepth}{5}
+
+%----------------------------------------------------
+% Header & Footer
+%----------------------------------------------------
+
+\pagestyle{fancy}
+\fancyhf{}
+\setlength\headheight{15pt}
+\fancyhead[L]{Candidate Number: 1230}
+\fancyhead[R]{D'overbroecks College}
+%\fancyfoot[R]{Page \thepage\ of \pageref{LastPage}}
+
+%----------------------------------------------------
+% Title Page
+%----------------------------------------------------
+\begin{document}
+
+    \title{ \normalsize \textsf{A2 Project}
+		\\[2.0cm]
+		\HRule{0.5pt} \\
+		\Huge \textsf{{SmartMirror}}
+		\HRule{2pt} \\[0.3cm]
+		\normalsize \today \vspace*{5\baselineskip}}
+
+    \date{}
+
+    \author{
+		Candidate number: 1230 \\
+		D'Overbroecks College \\
+		Computer Science }
+
+	\maketitle
+	\newpage
+
+%----------------------------------------------------
+% Table of Contents
+%----------------------------------------------------
+\tableofcontents
+\newpage
+
+%----------------------------------------------------
+% Analysis Section ( Section 1 )
+%----------------------------------------------------
+    \section{Analysis}
+    \subsection{Problem Definition}
+       We face a problem in this century, where we can't find enough hours in the day to do anything. and we also are in a world where home automation technology is getting more and more common, but the plain old mirror has no other functionality other than to show us the reflection of what's in front of it. We haven't added functionality to the mirror since the creation, and so my problem is what can we add to the mirror that makes it more useful than just seeing yourself in it? I propose that we enhance the experience that we have with a mirror that can give us useful information such as the weather or the news. Making an electronic mirror will enhance the functions of the mirror so that it can be more than just mirror.
+
+    \subsection{Market research}
+        \subsubsection{Existing Products}
+
+        In order find out what my project would require me to create, I needed to conduct some research that would help define the expected functionality of the mirror. This will then help me create a specification with the requirements of the Mirror that my target audience would expect from the SmartMirror and that is suitable for the user. I set up an online questionnaire and had sent it around for people to answer to help me develop this mirror and had received 65 replies.
+
+        The questions that I had asked a range of people are:
+        \begin{enumerate}
+            \item How much time do use a mirror in a day?
+                \subitem Majority of people had answered that they use a mirror for around 30 minutes during the entire day and about 15 minutes of that time is in the morning.
+            \item Would a smart mirror be something that you would buy?
+                \subitem 60\% of the people who had answered the questionnaire, would buy a smart mirror but it was dependent on the price. If it was relatively cheap then they would. In the range of £50-£100.
+            \item What features do you expect to be on the SmartMirror?
+                \subitem Almost everyone had said they'd like the time and calendar to be displayed on the mirror as well as upcoming events that they had in the calendar. They'd also like to see a feature that would allow them to see the weather forecast, preview their emails and see recent headlines
+            \item What would be the preferred method of interaction between yourself and the mirror?
+                \includegraphics[scale = 0.5]{Interactionchart.png}
+                \subitem 40.4\% of people had said that they would prefer the mirror to be gesture controlled and 36.8\% of people had said they'd like it to be voice controlled.
+        \end{enumerate}
+
+        \subsubsection{Conclusion}
+            After conducting this research I can conclude that my mirror would include the ability to  show the time, weather, calendar, preview emails, and notify them of recent headlines. It should be gesture controlled as most people said they'd prefer it.
+    \subsection{Research in Technologies}
+        For a mirror to display information there will need to be a monitor and a computer behind it to process and display the information on the monitor which will be behind a reflective screen that also allows what is on the monitor to shine through. This is the only feasible and practical method for me to create the mirror. \\
+        \subsubsection{Computer Processing and Control}
+            \noindent I've decided that the Raspberry Pi 3 is the best computer to use for this product because it is a small computer with the capability of having a full Operating System on it which gives it access to do a lot of information and process it. It runs a version of Linux called Rasbian made especially for the Pi. It's also quite small making it perfect for the mirror because it will keep the form factor of the mirror minimal and means that the mirror is portable to a certain extent. The only limitations are the Raspberry Pi isn't as fast as a desktop computer, because it's so small so there are some limitations to what I can and can't do on it. \\
+        \subsubsection{Gesture Recognition}
+            \noindent The initial idea for gesture control was to connect a USB camera to the Pi and process the information to detect the hand movements but there were no good methods that I had found that did this well and the APIs weren't very well made. I then thought that I could connect an Xbox Kinect to the Pi and use that as there are many open source APIs for use on Linux but after a few hours of researching I had found out that the Raspberry Pi just isn't powerful enough to handle the amount of processing required to detect the gestures from the Kinect and that it would use all of CPU for the processing that it would not be able to run it smoothly or run anything else on the Pi alongside it. I could take the information from the Pi then send it to an external computer and get process the information on there and send the information back but that would require a second computer and a constant connection between then two. This would also create another point for latency and cause unnecessary delay. \\
+            \noindent There are other methods of Gesture Control on the Pi, one being called the Skywriter, It's a HAT (Hardware On Top) that attaches to the GPIO ( General Purpose Input Output) pins on the Raspberry Pi that detects motion above it using electric field sensing and it comes with a very lightweight Python API. After doing some tests with it I discovered that it requires you to be almost touching the mirror in order for it to register the gesture and it's not very accurate to what action that was done above it. I won't be able to do gesture control on the Raspberry Pi simply because it doesn't have a good enough processor on it to process the images or the data required for gesture recognition.
+        \subsubsection{Voice Recognition}
+            \noindent Gesture control isn't a viable option for the Raspberry Pi and so the mirror will have to be controlled by voice instead. There are a few methods of voice to cause an action to happen on the screen. There are few APIs that can be used to translate an audio signal received by a computer to a string that can be parsed into a script to cause something to happen. One of the methods include the use of Google's Speech-To-Text (STT) API which takes an audio file or an input from the microphone and it sends it to the Google cloud servers to then process it using machine learning and then sends the data back. On the free trial this is limited to 50 requests per day and cannot be used for an always listening system that would be required for this system. There's also a concern for personal security and if it were to detect other sounds that you wouldn't want other people knowing and becomes a breach in privacy. For this reason I will not be using this Google's API for STT because there could be a possible breach in privacy and a point of latency causing delays between the voice and expected action from the computer.
+
+    \newpage
+
+    \subsection{Objectives}
+
+        My project idea is to create a mirror that can display information that can help speed up the daily process of getting ready for the day. My objectives for this project are as follows:
+        \begin{enumerate}
+            % \item The mirror must be easily navigated so the user does not have difficulty with the device. I will be doing this by using voice control so that a user can say a keyword and the specific keyword is related to an action that happens on screen. This has been my method of choice because any other method would include an action that would require the user to stop what they're doing, and would require more interaction between the user and the mirror, which would not be helpful and would create a delay to the user's daily tasks. This in itself would defeat the purpose of the mirror.
+            % \item The information displayed is accurate, legible and personalised to the specified user, so that the information on their screen is helpful for example, The date and time, recent emails, weather forecast, traffic updates and the news. They should be able to personalise the information to their preferences and set priorities to which widget of information they want the biggest.
+
+            \item The mirror must be able to respond to keywords so that the user can interact with the mirror. keywords would include:
+             \renewcommand{\labelenumii}{\Roman{enumii}}
+                \begin{enumerate}
+
+                    \item 'Show': will be the starting keyword so that the voice recognition knows to listen in for the keywords and navigate the user around the different information displays in the mirror.
+
+                    \item 'Weather': will be the keyword to navigate to the detailed weather page where the weather 5 day weather forecast is shown in detail
+
+                    \item 'Home': will be the keyword to navigate the user back to the main page/home menu.
+
+                    \item 'Email': will be the keyword to display recent emails with previews of the contents of each email.
+
+                    \item 'Calendar'; will be the keyword to display the calendar for the month with events taken from their specific account, i.e their Google account.
+                \end{enumerate}
+
+            \item It must be able to retrieve information at frequent intervals so that the information displayed is not outdated. and the correct information should be displayed. I intend to use a Google API to retrieve the information and interact with the google servers.
+
+            \item The mirror must be quick to update the information displayed with less than a second lag. This should be done on a timely basis. It should refresh every minute to save on processing power and to keep the mirror up to date.
+
+            \item The mirror must be able to display the date, time, weather, emails, and news. The date and time should be taken from the system which would be up to date by the Internet. The weather will be taken from openweathermap which allows me to take any weather forecast from the Internet and manipulate the data to how I would like to display it. The news will be taken from an RSS feed so I can manipulate the information easily. Emails will be taken from google servers and will interact with the Gmail API.
+
+            \item The mirror should be able to be configured by the user so that they can enable and disable the features that they don't want. I will do this using a config file so that the user can edit it. The user would be required to plug in a keyboard and mouse so that they can setup the mirror once, after that the I/O would not be needed.
+
+        \end{enumerate}
+\end{document}
