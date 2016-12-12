@@ -1,4 +1,4 @@
-ScrollRate = 100;
+ScrollRate = config.news.scrollRate || 100;
 
 function scrollDiv_init() {
 	DivElmnt = document.getElementById('newsContent');

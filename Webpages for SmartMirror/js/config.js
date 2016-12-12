@@ -7,9 +7,10 @@ var config = {
         id: '2640726'
     },
     news: {
-        numberOfArticles: 19, //(number of articles to how (10 is the maximum))
+        numberOfArticles: 5, //(number of articles to how (10 is the maximum))
         feedUrl: "https://api.rss2json.com/v1/api.json?rss_url=http%3A%2F%2Ffeeds.bbci.co.uk%2Fnews%2Frss.xml",
         delay: 1200, //time in miliseconds for each headline to display for 1000 = 1 second
+        scrollRate: 100, //Less time equals quicker scroll speed
     },
     mail: {
         clientid: "338294178289-fdhuk9lqmgaatll67u30j9675t7mtpto.apps.googleusercontent.com",
