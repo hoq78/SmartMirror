@@ -4,7 +4,7 @@ function mainPage(){
   checkAuth();
   checkCalAuth();
   news.getNews(news.mainPage);
-  weather.updateCurrentWeather();
+  weather.getWeather(weather.oneDayApiKey,weather.dashboardPage);
 }
 
 function newsPage(){
@@ -12,4 +12,11 @@ function newsPage(){
     getDate();
     news.getNews(news.detailPage);
     scrollDiv_init();
+}
+
+function weatherPage(){
+    showDigitalClock();
+    getDate();
+    weather.getWeather(weather.forecastApiKey,weather.forecastPage);
+
 }

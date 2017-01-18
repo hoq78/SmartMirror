@@ -1,13 +1,13 @@
 var config = {
     lang: 'en',
-    timeFormat: 'digital',
+    timeFormat: 'analogue',
     weather: {
         weatherAPIKey: 'ea3f8ebe279a4e080459a706e2133180',
         units: 'metric',
         id: '2640726'
     },
     news: {
-        numberOfArticles: 5, //(number of articles to how (10 is the maximum))
+        numberOfArticles: 20, //(number of articles to how (10 is the maximum))
         feedUrl: "https://api.rss2json.com/v1/api.json?rss_url=http%3A%2F%2Ffeeds.bbci.co.uk%2Fnews%2Frss.xml",
         delay: 1200, //time in miliseconds for each headline to display for 1000 = 1 second
         scrollRate: 100, //Less time equals quicker scroll speed
