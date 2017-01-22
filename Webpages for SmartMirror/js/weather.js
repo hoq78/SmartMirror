@@ -35,8 +35,10 @@ weather.oneDayApiKey = function() {
 };
 
 weather.forecastApiKey = function() {
-    // return weather.apiBase + 'forecast?id=' + weather.weatherLocation + '&units=' + config.weather.units + '&mode=json&APPID=' +weather.apiKey + '&cnt=5';
-    return 'http://api.openweathermap.org/data/2.5/forecast?q=London,us' + '&APPID=' + weather.apiKey;
+    // return 'http://api.openweathermap.org/data/2.5/forecast?id=' + weather.weatherLocation + '&units=metric&mode=json&APPID=' + weather.apiKey;
+    return weather.apiBase + 'forecast?q=london,us' + '&units=' + config.weather.units + '&mode=json&APPID=' + weather.apiKey;
+
+    // return 'http://api.openweathermap.org/data/2.5/forecast?q=London,GB&units=metric&mode=json&APPID=' + weather.apiKey;
 }
 
 //Round any values to an integer from a float
@@ -58,6 +60,7 @@ weather.getWeather = function(whichAPI, callback) {
 };
 
 weather.dashboardPage = function() {
+    console.log(weatherData);
     let _currentTemperature = weather.roundValue(weatherData.main.temp) + '°C',
         _iconClass = weatherData.weather[0].icon,
         _icon = "wi " + weather.iconLookup[_iconClass] + " wi-fw";
@@ -72,6 +75,7 @@ weather.dashboardPage = function() {
 }
 
 weather.forecastPage = function() {
+    console.log(weatherData);
     currentDate = new Date();
     fiveDayWeatherGrouping = [
         [],
@@ -88,95 +92,106 @@ weather.forecastPage = function() {
         }
         currentDate.setDate(currentDate.getDate() + 1);
     }
-    console.log(fiveDayWeatherGrouping[0][0].rain["3h"]);
+    console.log(fiveDayWeatherGrouping[0][0].rain);
 
-//     $(function () {
-//     var myChart = Highcharts.chart('container', {
-//         chart: {
-//             type: 'bar'
-//         },
-//         title: {
-//             text: 'Fruit Consumption'
-//         },
-//         xAxis: {
-//             categories: ['Apples', 'Bananas', 'Oranges']
-//         },
-//         yAxis: {
-//             title: {
-//                 text: 'Fruit eaten'
-//             }
-//         },
-//         series: [{
-//             name: 'Jane',
-//             data: [1, 0, 4]
-//         }, {
-//             name: 'John',
-//             data: [5, 7, 3]
-//         }]
-//     });
-// });
+    //     $(function () {
+    //     var myChart = Highcharts.chart('container', {
+    //         chart: {
+    //             type: 'bar'
+    //         },
+    //         title: {
+    //             text: 'Fruit Consumption'
+    //         },
+    //         xAxis: {
+    //             categories: ['Apples', 'Bananas', 'Oranges']
+    //         },
+    //         yAxis: {
+    //             title: {
+    //                 text: 'Fruit eaten'
+    //             }
+    //         },
+    //         series: [{
+    //             name: 'Jane',
+    //             data: [1, 0, 4]
+    //         }, {
+    //             name: 'John',
+    //             data: [5, 7, 3]
+    //         }]
+    //     });
+    // });
 
-//
-$(function () {
-    var myChart = Highcharts.chart('container',{
-        chart: {
-            zoomType:'xy'
-        },
-        title:{
-            text:'5 Day Weather'
-        },
-        xAxis:[{
-            categories: ['1','2','3','4','5'],
-            crosshair: true
-    }],
-    yAxis: [{
-        labels:{//Primary Axis
-            format:'{value}°C',
-            style:{
-                color: Highcharts.getOptions().colors[1]
-            }
-        },
-        title: {
-            text:'Temperature',
-            style:{
-                color: Highcharts.getOptions().colors[1]
-            }
-        }
-    }, {//Secondary Axis
-        title:{
-            text: 'Precipitation',
-            style:{
-                color: Highcharts.getOptions().colors[0]
-            }
-        },
-        labels:{
-            format:'{value} mm',
-            style:{
-                color:Highcharts.getOptions().colors[0]
-            }
-        },
-        opposite:true
-    }],
-    tooltip: {
-        shared: true
-    },
-    legend:{
-        layout: 'vertical',
-        align:'left',
-        x: 120,
-        verticalAlign:'top',
-        y:100,
-        floating:true,
-    },
-    series:[{
-        name:'Precipitation',
-        type:'column',
-        yAxis:1,
-        data:[fiveDayWeatherGrouping[0][0].rain["3h"],fiveDayWeatherGrouping[1][0].rain["3h"],fiveDayWeatherGrouping[2][0].rain["3h"],fiveDayWeatherGrouping[3][0].rain["3h"],fiveDayWeatherGrouping[4][0].rain["3h"]
-    }]
-        }
-    })
-})
+    //
+    $(function() {
+        var myChart = Highcharts.chart('container', {
+            chart: {
+                zoomType: 'xy'
+            },
+            title: {
+                text: '5 Day Weather'
+            },
+            xAxis: [{
+                categories: ['1', '2', '3', '4', '5'],
+                crosshair: true
+            }],
+            yAxis: [{ //Primary Axis
+                labels: {
+                    format: '{value}°C',
+                    style: {
+                        color: Highcharts.getOptions().colors[1]
+                    }
+                },
+                title: {
+                    text: 'Temperature',
+                    style: {
+                        color: Highcharts.getOptions().colors[1]
+                    }
+                }
+            }, { //Secondary Axis
+                title: {
+                    text: 'Precipitation',
+                    style: {
+                        color: Highcharts.getOptions().colors[0]
+                    }
+                },
+                labels: {
+                    format: '{value} mm',
+                    style: {
+                        color: Highcharts.getOptions().colors[0]
+                    }
+                },
+                opposite: true
+            }],
+            tooltip: {
+                shared: true
+            },
+            legend: {
+                layout: 'vertical',
+                align: 'left',
+                x: 120,
+                verticalAlign: 'top',
+                y: 100,
+                floating: true,
+                backgroundColor: '#FFFFFF'
+            },
+            series: [{
+                name: 'Precipitation',
+                type: 'column',
+                yAxis: 1,
+                // data: [fiveDayWeatherGrouping[0][0].rain["3h"], fiveDayWeatherGrouping[1][0].rain["3h"], fiveDayWeatherGrouping[2][0].rain["3h"], fiveDayWeatherGrouping[3][0].rain["3h"], fiveDayWeatherGrouping[4][0].rain["3h"]],
+                data: [1, 2, 3, 4, 5],
+                tooltop: {
+                    valueSuffix: ' mm'
+                }
+            }, {
+                name: 'Temperature',
+                type: 'spline',
+                data: [fiveDayWeatherGrouping[0][0].main.temp, fiveDayWeatherGrouping[1][0].main.temp, fiveDayWeatherGrouping[2][0].main.temp, fiveDayWeatherGrouping[3][0].main.temp, fiveDayWeatherGrouping[4][0].main.temp],
+                tooltip: {
+                    valueSuffix: ' °C'
+                }
+            }]
+        });
+    });
 }
 
 //Updates the current weather every 600000 milliseconds (10 minutes)
