@@ -1,7 +1,7 @@
 function mainPage(){
   whichClock();
   getDate();
-  checkAuth();
+  checkAuth(inboxCount);
   checkCalAuth();
   news.getNews(news.mainPage);
   weather.getWeather(weather.oneDayApiKey,weather.dashboardPage);
@@ -18,5 +18,10 @@ function weatherPage(){
     showDigitalClock();
     getDate();
     weather.getWeather(weather.forecastApiKey,weather.forecastPage);
+}
 
+function mailPage(){
+  showDigitalClock();
+  getDate();
+  checkAuth(detailedMail);
 }

@@ -11,12 +11,12 @@ var intervalHandle = null;
 /**
  * Check if current user has authorized this application.
  */
-function checkAuth() {
+function checkAuth(callback) {
     gapi.auth.authorize({
         'client_id': CLIENT_ID,
         'scope': SCOPES.join(' '),
         'immediate': true
-    }, handleAuthResult);
+    }, function(authResult) { handleAuthResult(callback, authResult) } );
 }
 
 /**
@@ -24,12 +24,12 @@ function checkAuth() {
  *
  * @param {Object} authResult Authorization result.
  */
-function handleAuthResult(authResult) {
+function handleAuthResult(callback,authResult) {
     var authorizeDiv = document.getElementById('authorize-div');
     if (authResult && !authResult.error) {
         // Hide auth UI, then load client library.
         authorizeDiv.style.display = 'none';
-        loadGmailApi();
+        loadGmailApi(callback);
         registerInboxInterval(1000*60*5);
     } else {
         // Show auth UI, allowing the user to initiate authorization by
@@ -64,9 +64,9 @@ function registerInboxInterval(x){
   intervalHandle = setInterval(inboxCount, x);
 }
 
-function loadGmailApi() {
+function loadGmailApi(callback) {
     // gapi.client.load('gmail', 'v1', listLabels);
-    gapi.client.load('gmail', 'v1', inboxCount);
+    gapi.client.load('gmail', 'v1', callback);
 }
 
 
@@ -79,5 +79,14 @@ function inboxCount() {
         noOfUnreadEmails = resp.messagesUnread;
         $('#inboxCountNumber').html(noOfUnreadEmails);
     });
+  }
 
+function detailedMail(){
+  var request = gapi.client.gmail.users.messages.get({
+    'userId':'me',
+    'id':config.mail.whichInboxCount,
+  });
+  request.execute(function(resp) {
+    console.log(resp);
+  })
 }
