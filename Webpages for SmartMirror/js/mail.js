@@ -82,11 +82,21 @@ function inboxCount() {
   }
 
 function detailedMail(){
-  var request = gapi.client.gmail.users.messages.get({
+  var request = gapi.client.gmail.users.messages.list({
     'userId':'me',
-    'id':config.mail.whichInboxCount,
+    'labelIds':'IMPORTANT',
   });
   request.execute(function(resp) {
     console.log(resp);
   })
+}
+
+function getMessage(){
+    var request = gapi.client.gmail.users.messages.get({
+        'userId': 'me',
+        'id': '15a00637c1b7a4e2',
+    });
+    request.execute(function(resp){
+        console.log(resp);
+    })
 }
