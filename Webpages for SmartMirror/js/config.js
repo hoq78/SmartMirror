@@ -15,6 +15,7 @@ var config = {
     mail: {
         clientid: "338294178289-fdhuk9lqmgaatll67u30j9675t7mtpto.apps.googleusercontent.com",
         whichInboxCount: 'INBOX',
+        howManyEmails: 20,
     },
     calendar:{
         howManyEvents: 8, //Max number of upcoming events you would like to see (8 is the maximum)

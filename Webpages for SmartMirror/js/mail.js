@@ -81,22 +81,64 @@ function inboxCount() {
     });
   }
 
+function getEmailIds(resp){
+  emailIDs = [];
+  for(noOfmail=0; noOfmail<config.mail.howManyEmails; noOfmail++){
+    emailID = resp.messages[noOfmail].id;
+    emailIDs.push(emailID);
+  };
+  return emailIDs
+}
+
+function getSubjectHeaders(resp){
+  emailSubjects = [];
+  for(i=0;i<resp.payload.headers.length;i++){
+    if(resp.payload.headers[i].name == 'Subject'){
+      subject = resp.payload.headers[i].value;
+      return subject
+    };
+  };
+}
+
+function getEmailContent(resp){
+  emailContent = [];
+  for(i=0; i<config.mail.howManyEmails;i++){
+    emailSnippet = resp.snipppet;
+    emailContent.push(emailSnippet);
+  };
+  return emailContent;
+}
+
 function detailedMail(){
   var request = gapi.client.gmail.users.messages.list({
     'userId':'me',
     'labelIds':'IMPORTANT',
   });
   request.execute(function(resp) {
-    console.log(resp);
+    emailIDs = getEmailIds(resp);
+    emailSubjects = [];
+    emailSnippets = [];
+    for(emailIDtoGet=0;emailIDtoGet<emailIDs.length;emailIDtoGet++){
+      emailID = emailIDs[emailIDtoGet];
+      emailSubject = [];
+      emailContent = [];
+      getMessage(emailID);
+    };
+    console.log(emailSubjects);
   })
 }
 
-function getMessage(){
+function getMessage(id){
     var request = gapi.client.gmail.users.messages.get({
         'userId': 'me',
-        'id': '15a00637c1b7a4e2',
+        'id': id,
     });
     request.execute(function(resp){
-        console.log(resp);
+      emailSubject.push(getSubjectHeaders(resp));
+      emailContent.push(resp.snippet);
+      console.log(emailSubject);
+      // tempArray = [emailSubject,emailContent];
+      // console.log(tempArray);
+      // return tempArray;
     })
 }
