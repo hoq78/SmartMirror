@@ -126,14 +126,19 @@ function displayEmails(){
     emailSubjectLine = table.insertRow();
     subjectLine = emailSubjectLine.insertCell();
     subjectLine.id = item;
-    document.getElementById(subjectLine.id).classname = 'HeadlineRow';
+    fromline = emailSubjectLine.insertCell();
+    fromline.id = item+'from';
+    document.getElementById(fromline.id).className = 'FromReceipt';
+    document.getElementById(subjectLine.id).className = 'SubjectLine';
     var emailContentLine = table.insertRow();
     var contentLine = emailContentLine.insertCell();
     emailContentLine.id = item+'content';
     document.getElementById(emailContentLine.id).className = 'ContentRow';
     emailSubjectVar = emailSubject[itemNum];
     emailContentVar = emailContent[itemNum];
+    emailFromVar = emailFrom[itemNum];
     $('#'+item).html(emailSubjectVar);
+    $('#'+item+'from').html(emailFromVar);
     $('#'+item+'content').html(emailContentVar);
   }
 }
@@ -170,10 +175,7 @@ function getMessage(id, callback){
     request.execute(function(resp){
       emailSubject.push(getSubjectHeaders(resp));
       emailContent.push(resp.snippet);
-      emailFrom.push()
+      emailFrom.push(getEmailFrom(resp));
       callback();
-      // tempArray = [emailSubject,emailContent];
-      // console.log(tempArray);
-      // return tempArray;
     })
 }

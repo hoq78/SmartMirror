@@ -2,7 +2,7 @@ function mainPage(){
   whichClock();
   getDate();
   checkAuth(inboxCount);
-  checkCalAuth();
+  checkCalAuth(showNextEvent);
   news.getNews(news.mainPage);
   weather.getWeather(weather.oneDayApiKey,weather.dashboardPage);
 }
@@ -24,4 +24,12 @@ function mailPage(){
   showDigitalClock();
   getDate();
   checkAuth(detailedMail);
+  scrollDiv_init();
+}
+
+function calendarPage(){
+    showDigitalClock();
+    getDate();
+    checkCalAuth(detailedCalendarPage);
+    scrollDiv_init();
 }

@@ -152,7 +152,7 @@ html, body {
     align-items: middle;
 }
 
-#newsTable {
+#newsTable, #calendarTable, #emailsTable {
     border-collapse: collapse;
     width: 75%;
     height: auto;
@@ -177,13 +177,28 @@ html, body {
 .HeadlineRow {
     font-size: 40px;
     padding-top: 5px;
-    /*padding-bottom: 5px;*/
 }
 
 .ContentRow {
     font-size: 20px;
     padding-top: 5px;
     padding-bottom: 25px;
+}
+
+.SubjectLine {
+    font-size: 35px;
+    padding-top: 5px;
+    font-weight: bold;
+}
+
+.FromReceipt {
+    font-size: 20px;
+    padding-top: 10px;
+}
+
+.EventLine {
+    font-size: 35px;
+    padding-top: 5px;
 }
 
 #weatherContent {
@@ -193,13 +208,3 @@ html, body {
     height: 100%;
     overflow: hidden;
 }
-
-
-/*
-td{
-  padding-top: 10px;
-  padding-bottom: 10px;
-  padding-right: 10px;
-  padding-left: 10px;
-}
-*/

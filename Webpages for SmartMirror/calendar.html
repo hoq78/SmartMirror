@@ -19,7 +19,7 @@
     <script src="js/DigitalClock.js"></script>
     <script src="js/DisplayDate.js"></script>
     <script src="js/DisplayWhichClock.js"></script>
-    <script src="js/mail.js"></script>
+    <script src="js/calendar.js"></script>
     <script src="js/main.js"></script>
     <script src="js/scrolling.js"></script>
 
@@ -31,7 +31,7 @@
 		<![endif]-->
 </head>
 
-<body>
+<body onload="calendarPage()">
     <div id="authorize-div" style="display: none">
         <!-- Google authorization Div if the account is not already authorized, assuming it is -->
         <span>Authorize access to Gmail API</span>
@@ -44,6 +44,11 @@
     <div id="topBanner">
         <div id="dc" class="bannerClock"></div>
         <div id="date" class="bannerDate"></div>
+    </div>
+
+    <div id="newsContent">
+        <table id="calendarTable">
+        </table>
     </div>
 
 
