@@ -7,6 +7,9 @@
 var CLIENT_ID = '338294178289-fdhuk9lqmgaatll67u30j9675t7mtpto.apps.googleusercontent.com';
 var SCOPES = ['https://www.googleapis.com/auth/gmail.readonly'];
 var intervalHandle = null;
+var emailSubject = [];
+var emailContent = [];
+var emailFrom = [];
 
 /**
  * Check if current user has authorized this application.
@@ -83,7 +86,7 @@ function inboxCount() {
 
 function getEmailIds(resp){
   emailIDs = [];
-  for(noOfmail=0; noOfmail<config.mail.howManyEmails; noOfmail++){
+  for(noOfmail=0; noOfmail<config.mail.howManyEmails && noOfmail < resp.messages.length; noOfmail++){
     emailID = resp.messages[noOfmail].id;
     emailIDs.push(emailID);
   };
@@ -100,14 +103,50 @@ function getSubjectHeaders(resp){
   };
 }
 
+function getEmailFrom(resp){
+  emailSubjects = [];
+  for(i=0;i<resp.payload.headers.length;i++){
+    if(resp.payload.headers[i].name == 'From'){
+      from = resp.payload.headers[i].value;
+      return from
+    };
+  };
+}
+
+function finishedAllCallbacks(){
+  if(emailSubject.length == config.mail.howManyEmails){
+  displayEmails();
+  }
+}
+
+function displayEmails(){
+  var table = document.getElementById('emailsTable');
+  for(itemNum=0;itemNum<emailSubject.length;itemNum++){
+    item = 'item' + itemNum.toString();
+    emailSubjectLine = table.insertRow();
+    subjectLine = emailSubjectLine.insertCell();
+    subjectLine.id = item;
+    document.getElementById(subjectLine.id).classname = 'HeadlineRow';
+    var emailContentLine = table.insertRow();
+    var contentLine = emailContentLine.insertCell();
+    emailContentLine.id = item+'content';
+    document.getElementById(emailContentLine.id).className = 'ContentRow';
+    emailSubjectVar = emailSubject[itemNum];
+    emailContentVar = emailContent[itemNum];
+    $('#'+item).html(emailSubjectVar);
+    $('#'+item+'content').html(emailContentVar);
+  }
+}
+
 function getEmailContent(resp){
   emailContent = [];
   for(i=0; i<config.mail.howManyEmails;i++){
-    emailSnippet = resp.snipppet;
+    emailSnippet = resp.snippet;
     emailContent.push(emailSnippet);
   };
   return emailContent;
 }
+
 
 function detailedMail(){
   var request = gapi.client.gmail.users.messages.list({
@@ -116,19 +155,14 @@ function detailedMail(){
   });
   request.execute(function(resp) {
     emailIDs = getEmailIds(resp);
-    emailSubjects = [];
-    emailSnippets = [];
     for(emailIDtoGet=0;emailIDtoGet<emailIDs.length;emailIDtoGet++){
       emailID = emailIDs[emailIDtoGet];
-      emailSubject = [];
-      emailContent = [];
-      getMessage(emailID);
+      getMessage(emailID, finishedAllCallbacks);
     };
-    console.log(emailSubjects);
   })
 }
 
-function getMessage(id){
+function getMessage(id, callback){
     var request = gapi.client.gmail.users.messages.get({
         'userId': 'me',
         'id': id,
@@ -136,7 +170,8 @@ function getMessage(id){
     request.execute(function(resp){
       emailSubject.push(getSubjectHeaders(resp));
       emailContent.push(resp.snippet);
-      console.log(emailSubject);
+      emailFrom.push()
+      callback();
       // tempArray = [emailSubject,emailContent];
       // console.log(tempArray);
       // return tempArray;
