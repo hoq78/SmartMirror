@@ -36,9 +36,9 @@ weather.oneDayApiKey = function() {
 
 weather.forecastApiKey = function() {
     // return 'http://api.openweathermap.org/data/2.5/forecast?id=' + weather.weatherLocation + '&units=metric&mode=json&APPID=' + weather.apiKey;
-    return weather.apiBase + 'forecast?q=oxford,gb' + '&units=' + config.weather.units + '&mode=json&APPID=' + weather.apiKey;
+    return weather.apiBase + 'forecast?q=London,gb' + '&units=' + config.weather.units + '&mode=json&APPID=' + weather.apiKey;
 
-    // return 'http://api.openweathermap.org/data/2.5/forecast?q=London,GB&units=metric&mode=json&APPID=' + weather.apiKey;
+    // return 'http://api.openweathermap.org/data/2.5/forecast?q=London,GB&units=metric&mode=xml&APPID='ea3f8ebe279a4e080459a706e2133180' + weather.apiKey;
 }
 
 //Round any values to an integer from a float
@@ -60,7 +60,6 @@ weather.getWeather = function(whichAPI, callback) {
 };
 
 weather.dashboardPage = function() {
-    console.log(weatherData);
     let _currentTemperature = weather.roundValue(weatherData.main.temp) + '°C',
         _iconClass = weatherData.weather[0].icon,
         _icon = "wi " + weather.iconLookup[_iconClass] + " wi-fw";
@@ -78,10 +77,10 @@ getRainData = function(data) {
     rainData = [];
     for (count = 0; count < data.length; count++) {
         for (hour = 0; hour < data[count].length; hour++) {
-            if (typeof(data[count][hour].rain)) {
-                rainData.push('0');
+            if (typeof data[count][hour].rain['3h'] == "undefined") {
+              rainData.push('0');
             } else {
-                rainData.push(data[count][hour].rain['3h'])
+              rainData.push(data[count][hour].rain['3h'])
             };
         };
     }
@@ -106,7 +105,7 @@ getXAxisData = function(data){
     xAxisData = [];
     for(count=0;count<data.length;count++){
         for(hour=0;hour<data[count].length;hour++){
-            xAxisData.push(data[count][hour].dt_txt.slice(5));
+            xAxisData.push(data[count][hour].dt_txt);
         }
     }
     return xAxisData;
@@ -120,6 +119,7 @@ weather.forecastPage = function() {
         [],
         []
     ];
+
     for (i = 0; i < fiveDayWeatherGrouping.length; i++) {
         for (j = 0; j < weatherData.list.length; j++) {
             if (currentDate.toISOString().slice(0, 10) === weatherData.list[j].dt_txt.slice(0, 10)) {
@@ -128,7 +128,6 @@ weather.forecastPage = function() {
         }
         currentDate.setDate(currentDate.getDate() + 1);
     }
-    console.log(fiveDayWeatherGrouping[0][0]);
 
     xAxisData = getXAxisData(fiveDayWeatherGrouping);
 
@@ -157,9 +156,10 @@ weather.forecastPage = function() {
                 color:'#FFFFFF',
                 crosshair: true,
                 labels: {
+                  rotation: 90,
                     style:{
                         color:'#FFFFFF',
-                        fontSize:'40px',
+                        fontSize:'20px',
                         fontWeight:'bold'
                     }
                 }
