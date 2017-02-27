@@ -1,7 +1,3 @@
-// document.addEventListener('DOMContentLoaded', function() {
-//     weather.updateCurrentWeather();
-// }, false);
-
 var weather = {
     lang: config.lang || 'en',
     apiKey: config.weather.weatherAPIKey,
@@ -27,7 +23,7 @@ var weather = {
     },
     updateInterval: 600000,
     apiBase: 'http://api.openweathermap.org/data/2.5/',
-    weatherLocation: config.weather.id || '2640726',
+    weatherLocation: config.weather.id ||'2640726',
 }
 //Returns the full API key to be used for retrieval from the server
 weather.oneDayApiKey = function() {
@@ -35,10 +31,7 @@ weather.oneDayApiKey = function() {
 };
 
 weather.forecastApiKey = function() {
-    // return 'http://api.openweathermap.org/data/2.5/forecast?id=' + weather.weatherLocation + '&units=metric&mode=json&APPID=' + weather.apiKey;
-    return weather.apiBase + 'forecast?q=London,gb' + '&units=' + config.weather.units + '&mode=json&APPID=' + weather.apiKey;
-
-    // return 'http://api.openweathermap.org/data/2.5/forecast?q=London,GB&units=metric&mode=xml&APPID='ea3f8ebe279a4e080459a706e2133180' + weather.apiKey;
+    return weather.apiBase + 'forecast?id=' + weather.weatherLocation + '&units=' + config.weather.units + '&mode=json&APPID=' + weather.apiKey;
 }
 
 //Round any values to an integer from a float
@@ -59,7 +52,7 @@ weather.getWeather = function(whichAPI, callback) {
     });
 };
 
-weather.dashboardPage = function() {
+weather.dashboardPage = function() { // gets the data to display on the dashboard page
     let _currentTemperature = weather.roundValue(weatherData.main.temp) + '°C',
         _iconClass = weatherData.weather[0].icon,
         _icon = "wi " + weather.iconLookup[_iconClass] + " wi-fw";
@@ -73,7 +66,7 @@ weather.dashboardPage = function() {
     document.getElementById("tempLocation").innerHTML = _location;
 }
 
-getRainData = function(data) {
+getRainData = function(data) { //funcion to get the data for the rain bars
     rainData = [];
     for (count = 0; count < data.length; count++) {
         for (hour = 0; hour < data[count].length; hour++) {
@@ -87,7 +80,7 @@ getRainData = function(data) {
 return rainData;
 }
 
-getTemp = function(data){
+getTemp = function(data){ // function to get the data for the temp axis
     tempData = [];
     for (count = 0; count < data.length; count++) {
         for (hour = 0; hour < data[count].length; hour++) {
@@ -101,7 +94,7 @@ getTemp = function(data){
     return tempData
 }
 
-getXAxisData = function(data){
+getXAxisData = function(data){ // gets the data for the categories on the x Axis
     xAxisData = [];
     for(count=0;count<data.length;count++){
         for(hour=0;hour<data[count].length;hour++){
@@ -110,6 +103,36 @@ getXAxisData = function(data){
     }
     return xAxisData;
 }
+
+function get12Hour(element){
+    hour = element.slice(11,13);
+    if( parseInt(hour) > 12 ){
+        twelveHour = parseInt(hour) - 12
+        hour = twelveHour.toString() + ' PM'
+    } else if( parseInt(hour) < 12 && parseInt(hour) > 0 ){
+        hour = hour + ' AM'
+    } else if( parseInt(hour) == 12 ){
+        hour = hour + ' PM'
+    }else if( parseInt(hour) == 0){
+        hour = '12 AM'
+    }
+    return hour
+}
+
+function dataForDisplay(array){ //Gets the dates from the xAxis and converts the numbers into days
+    xAxisDisplay = [];
+    daysInWeek = ['Sun','Mon','Tues','Wed','Thurs','Fri','Sat']
+    for(i=0;i<array.length;i++){
+        dateElement = array[i].slice(0,10);
+        hour = get12Hour(array[i]);
+        date = new Date(dateElement)
+        day = date.getDay()
+        display = daysInWeek[day] + ' ' + hour;
+        xAxisDisplay.push(display);
+    }
+    return xAxisDisplay
+}
+
 weather.forecastPage = function() {
     currentDate = new Date();
     fiveDayWeatherGrouping = [
@@ -119,7 +142,7 @@ weather.forecastPage = function() {
         [],
         []
     ];
-
+        //Sorts all the data into an array so that the Highcharts API can easily parse the information
     for (i = 0; i < fiveDayWeatherGrouping.length; i++) {
         for (j = 0; j < weatherData.list.length; j++) {
             if (currentDate.toISOString().slice(0, 10) === weatherData.list[j].dt_txt.slice(0, 10)) {
@@ -129,7 +152,7 @@ weather.forecastPage = function() {
         currentDate.setDate(currentDate.getDate() + 1);
     }
 
-    xAxisData = getXAxisData(fiveDayWeatherGrouping);
+    xAxisData = dataForDisplay(getXAxisData(fiveDayWeatherGrouping));
 
     rainData = getRainData(fiveDayWeatherGrouping);
 
@@ -137,18 +160,18 @@ weather.forecastPage = function() {
 
 
     $(function() {
-        var myChart = Highcharts.chart('container', {
+        var myChart = Highcharts.chart('weatherGraph', {
             chart: {
                 color:'#FFFFFF',
                 zoomType: 'xy',
                 backgroundColor: '#000000',
-                fontSize:'60px'
+                fontSize:'40px'
             },
             title: {
                 text: '5 Day Weather',
                 style:{
                 color: '#FFFFFF',
-                fontSize:'60px'
+                fontSize:'30px'
             }
             },
             xAxis: [{

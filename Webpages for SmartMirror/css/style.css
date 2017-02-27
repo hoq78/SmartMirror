@@ -12,7 +12,17 @@ html, body {
     font-size: 75px;
     -webkit-font-smoothing: antialiased;
     text-rendering: geometricprecision;
-    /*cursor: none;*/
+    -webkit-animation: fadein 5s;
+    cursor: none;
+}
+
+@-webkit-keyframes fadein {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
 #topBanner {
