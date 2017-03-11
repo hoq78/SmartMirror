@@ -7,10 +7,13 @@ var config = {
         id: '2640729' // The default is Oxford, to change go to Openweathermap.org to find your City ID
     },
     news: {
-        numberOfArticles: 20, // number of articles to show on detailed page
-        feedUrl: "https://api.rss2json.com/v1/api.json?rss_url=http%3A%2F%2Ffeeds.bbci.co.uk%2Fnews%2Frss.xml",
+        numberOfBbcArticles: 15, // number of articles to show on detailed page
+        numberOfDoverbroecksArticles: 5,
+        bbcUrl: "https://api.rss2json.com/v1/api.json?rss_url=http%3A%2F%2Ffeeds.bbci.co.uk%2Fnews%2Frss.xml",
         delay: 1200, // time in miliseconds for each headline to display on the dashboard (1000 = 1 second)
         scrollRate: 100, // Less time equals quicker scroll speed
+        doverbroecksUrl:'https://www.doverbroecks.com/category/doverbroecks/'
+
     },
     mail: {
         clientid: "338294178289-fdhuk9lqmgaatll67u30j9675t7mtpto.apps.googleusercontent.com",
