@@ -1,8 +1,7 @@
-// document.addEventListener('DOMContentLoaded', function() {
-//     whichClock();
-// }, false);
+/**
+* Function to choose which clock should be displayed taken from the config file.
+*/
 
-//Function to choose which clock should be displayed taken from the config file.
 function whichClock() {
     if (config.timeFormat === "digital") {
         $("#digital").css("display", "inline-block");

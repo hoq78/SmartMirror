@@ -1,3 +1,8 @@
+/**
+* Functions that run on load of each of the different pages,
+* They run all the functions required to get all the information and display it
+*/
+
 function mainPage(){
   whichClock();
   getDate();

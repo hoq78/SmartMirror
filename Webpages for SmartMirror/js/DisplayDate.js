@@ -1,7 +1,6 @@
-// document.addEventListener('DOMContentLoaded', function() {
-//     getDate();
-// }, false);
-
+/**
+* A function to get the current Date and display it correctly for display on all pages
+*/
 function getDate() {
     var date = new Date();
     var daynumber = date.getDay();
@@ -17,6 +16,4 @@ function getDate() {
     month = monthsInYear[month];
     let dateOut = day + " " + dateOfMonth + " " + month + " " + year;
     $("#date").html(dateOut);
-    //document.getElementById('date').innerHTML = day + ":" + daynumber + ":" + month+ ":" + year ;
-
 }

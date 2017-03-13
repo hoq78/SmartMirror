@@ -1,7 +1,3 @@
-// document.addEventListener('DOMContentLoaded', function() {
-//     digitalclockFunction();
-// }, false);
-
 function showDigitalClock() {
     var dt = new Date() // DATE() CONSTRUCTOR FOR CURRENT SYSTEM DATE AND TIME.
     var hrs = dt.getHours();

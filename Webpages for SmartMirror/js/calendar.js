@@ -1,6 +1,6 @@
 // Your Client ID can be retrieved from your project in the Google
 // Developer Console, https://console.developers.google.com
-var CLIENT_ID = '338294178289-da0aqg7iipk7no86urg7udc5akghdpfg.apps.googleusercontent.com';
+var CLIENT_ID = config.calendar.clientid;
 
 var SCOPES = ["https://www.googleapis.com/auth/calendar.readonly"];
 
@@ -49,8 +49,8 @@ function handleAuthClick(event) {
 }
 
 /**
- * Load Google Calendar client library. List upcoming events
- * once client library is loaded.
+ * Load Google Calendar client library. Runs callback
+ * function which is dependant on which page is loaded.
  */
 
 function loadCalendarApi(callback) {
@@ -58,6 +58,7 @@ function loadCalendarApi(callback) {
 }
 
 function showNextEvent() {
+  //Sends a request to Google Servers to get the next event from the current time.
     var request = gapi.client.calendar.events.list({
         'calendarId': 'primary',
         'timeMin': (new Date()).toISOString(),
@@ -74,6 +75,10 @@ function showNextEvent() {
         if (!when) {
             when = nextEvent.start.date;
         };
+        /**
+        * Slices the time date string into separate variables
+        * so that it can be positioned separately using CSS
+        */
         time = when.slice(11, 16);
         date = when.slice(8, 10) + '/' + when.slice(5, 7);
         $('#nextEvent').html(nextEvent.summary);
@@ -82,6 +87,12 @@ function showNextEvent() {
     });
     setTimeout(showNextEvent,30000);
 }
+
+/**
+* Sends a request to Google Servers
+* to get the specified events so the detailed
+* calendar page can display many events
+*/
 
 function detailedCalendarPage(){
     var request = gapi.client.calendar.events.list({
@@ -97,6 +108,11 @@ function detailedCalendarPage(){
         displayEvents(resp);
     })
 }
+/**
+* Uses the empty table in the calendar.html
+* generate the rows and columns in the table
+* to then use jquery to populate it.
+*/
 
 function displayEvents(resp){
     var table = document.getElementById('calendarTable');
