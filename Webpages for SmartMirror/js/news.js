@@ -1,5 +1,3 @@
-
-
 var newsInterval = null;
 var newsData = [];
 var bbcNewsData = null;
@@ -8,10 +6,6 @@ var bbcDone = false;
 var dovDone = false;
 var dictOfDoverbroecksItems = {};
 var doverCount = 0;
-
-var news = {
-    intervalForDisplay: config.news.delay || 5000,
-};
 
 function getContent(counter) {
     return newsData[counter][1];
@@ -28,16 +22,15 @@ function changeNewsContent() {
         });
     });
     if (counter >= config.news.numberOfBbcArticles+config.news.numberOfDoverbroecksArticles) {
-        news.getNews();
+        getNews();
         counter = 0;
     }
 }
 
-news.getBbcNewsData = function(callback){
+function getBbcNewsData(callback){
   $.ajax({
       type: 'GET',
       url: config.news.bbcUrl,
-      // url: "https://api.rss2json.com/v1/api.json?rss_url=http%3A%2F%2Ffeeds.skynews.com%2Ffeeds%2Frss%2Fhome.xml",
       success: function(data) {
           bbcNewsData = data.items.slice(0,config.news.numberOfBbcArticles);
           bbcDone = true;
@@ -45,8 +38,8 @@ news.getBbcNewsData = function(callback){
           }
   });
 }
-news.getNews = function(callback) {
-  news.getBbcNewsData(callback);
+function getNews(callback) {
+  getBbcNewsData(callback);
   getDoverbroecksNewsData(callback);
 
 }
@@ -61,16 +54,13 @@ function populateNewsData(){
     newsData.push([item[1], item[0], item[2]]);
   }
   newsData = mergeSort(newsData);
-  console.log(newsData);
 }
 
-news.mainPage = function(){
+function newsMainPage(){
   if(!dovDone || !bbcDone){
-    console.log('not finished');
     return;
   }
   populateNewsData();
-  console.log('finished');
   counter = 0;
   changeNewsContent();
   if(newsInterval==null){
@@ -79,9 +69,8 @@ news.mainPage = function(){
   }
 }
 
-news.detailPage = function(){
+function detailPage(){
   if(!dovDone || !bbcDone){
-    console.log('not finished');
     return;
   }
   populateNewsData();

@@ -3,9 +3,9 @@ function mergeSort(items) {
         return items;
     }
 
-    middle = parseInt(items.length / 2);
-    left = items.slice(0, middle);
-    right = items.slice(middle, items.length);
+    var middle = parseInt(items.length / 2);
+    var left = items.slice(0, middle);
+    var right = items.slice(middle, items.length);
 
     return merge(mergeSort(left), mergeSort(right));
 }

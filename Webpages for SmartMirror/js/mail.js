@@ -194,7 +194,6 @@ function detailedMail(){
     'labelIds':'IMPORTANT',
   });
   request.execute(function(resp) {
-    console.log(resp);
     emailIDs = getEmailIds(resp);
     for(emailIDtoGet=0;emailIDtoGet<emailIDs.length;emailIDtoGet++){
       emailID = emailIDs[emailIDtoGet];
