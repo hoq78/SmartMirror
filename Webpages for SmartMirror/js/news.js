@@ -69,7 +69,7 @@ function newsMainPage(){
   }
 }
 
-function detailPage(){
+function newsDetailPage(){
   if(!dovDone || !bbcDone){
     return;
   }

@@ -13,7 +13,7 @@ html, body {
     -webkit-font-smoothing: antialiased;
     text-rendering: geometricprecision;
     -webkit-animation: fadein 5s;
-    /*cursor: none;*/
+    cursor: none;
 }
 
 @-webkit-keyframes fadein {

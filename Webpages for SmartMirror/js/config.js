@@ -1,5 +1,5 @@
 var config = {
-    timeFormat: 'digital', // Select the time format for the Clock on the homepage
+    timeFormat: 'analogue', // Select the time format for the Clock on the homepage
     weather: {
         weatherAPIKey: 'ea3f8ebe279a4e080459a706e2133180', // API key taken from Openweathermap.org
         units: 'metric', // Units to display the weather information
