@@ -29,7 +29,7 @@ var weather = {
 weather.oneDayApiKey = function() {
     return weather.apiBase + 'weather?id=' + weather.weatherLocation + '&units=' + config.weather.units + '&mode=json&APPID=' + weather.apiKey;
 };
-
+// Returns the API key for the forecast page
 weather.forecastApiKey = function() {
     return weather.apiBase + 'forecast?id=' + weather.weatherLocation + '&units=' + config.weather.units + '&mode=json&APPID=' + weather.apiKey;
 }
@@ -158,7 +158,7 @@ weather.forecastPage = function() {
 
     tempData = getTemp(fiveDayWeatherGrouping);
 
-
+    // Highcharts API function to draw the chart
     $(function() {
         var myChart = Highcharts.chart('weatherGraph', {
             chart: {
@@ -239,7 +239,6 @@ weather.forecastPage = function() {
                 name: 'Precipitation',
                 type: 'column',
                 yAxis: 1,
-                // data: [fiveDayWeatherGrouping[0][0].rain["3h"], fiveDayWeatherGrouping[1][0].rain["3h"], fiveDayWeatherGrouping[2][0].rain["3h"], fiveDayWeatherGrouping[3][0].rain["3h"], fiveDayWeatherGrouping[4][0].rain["3h"]],
                 data: rainData,
                 color:'#34576d',
                 tooltop: {

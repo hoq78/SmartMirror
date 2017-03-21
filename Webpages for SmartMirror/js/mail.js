@@ -141,7 +141,7 @@ function finishedAllCallbacks(){
 /**
 * Uses the empty table in the mail.html
 * generate the rows and columns in the table
-* to then use jquery to populate it using the arrays if data.
+* to then use jquery to populate it using the arrays of data.
 */
 
 function displayEmails(){

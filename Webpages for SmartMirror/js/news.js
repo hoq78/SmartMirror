@@ -11,6 +11,12 @@ function getContent(counter) {
     return newsData[counter][1];
 }
 
+/**
+* Fades in and out the news headlines
+* for the homepage and cycles through
+* all the headlines.
+*/
+
 function changeNewsContent() {
     if( newsData == null){
       return;
@@ -27,6 +33,11 @@ function changeNewsContent() {
     }
 }
 
+/**
+* Ajax call runs to fetch bbc news rss
+* feed using rss2json API then runs
+*/
+
 function getBbcNewsData(callback){
   $.ajax({
       type: 'GET',
@@ -38,11 +49,23 @@ function getBbcNewsData(callback){
           }
   });
 }
+
+/**
+* Main function that runs to get all
+* news data and runs callback when
+* all the data has been received.
+*/
+
 function getNews(callback) {
   getBbcNewsData(callback);
   getDoverbroecksNewsData(callback);
-
 }
+
+/**
+* Sorts the news data from both sources into
+* time order and appends it to a new array.
+* The standard order is [[headline],[content],[time]].
+*/
 
 function populateNewsData(){
   for(i=0;i<bbcNewsData.length;i++){
@@ -56,6 +79,11 @@ function populateNewsData(){
   newsData = mergeSort(newsData);
 }
 
+/**
+* Function which strings together all the Functions
+* required to get the mainpage functioning.
+*/
+
 function newsMainPage(){
   if(!dovDone || !bbcDone){
     return;
@@ -68,6 +96,12 @@ function newsMainPage(){
     newsInterval = setInterval(changeNewsContent,1000*6);
   }
 }
+
+/**
+* Function that strings together all the functions
+* required to get the news detailed page to work.
+* if the news is not finished being received then it exits.
+*/
 
 function newsDetailPage(){
   if(!dovDone || !bbcDone){
@@ -92,6 +126,11 @@ function newsDetailPage(){
   }
 }
 
+/**
+* Gets the doverbroecks news data
+* and scrapes it from the website.
+*/
+
 
 function getDoverbroecksNewsData(callback){
 $.ajax({
@@ -103,8 +142,13 @@ $.ajax({
 });
 }
 
+/**
+* Runs ajax call to get doverbroecks data
+* and sorts the data into the standard format.
+*/
+
 function addDoverbroecksTimestamp(url,callback){
-  function helper(data){
+  function sortContent(data){
     parser = new DOMParser()
     htmlDoc = parser.parseFromString(data,'text/html')
     list = htmlDoc.getElementsByTagName('head')[0].getElementsByTagName('meta')
@@ -125,10 +169,14 @@ function addDoverbroecksTimestamp(url,callback){
   $.ajax({
     type:'GET',
     url:url,
-    success: helper
+    success: sortContent
   });
 
 }
+
+/**
+* Scrapes the data from the HTML to use put into the array
+*/
 
 function scrapeDoverbroecksNews(data,callback){
 

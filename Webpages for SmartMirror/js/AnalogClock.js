@@ -1,8 +1,3 @@
-// document.addEventListener('DOMContentLoaded', function() {
-//     showClock();
-// }, false);
-
-
 function showAnalogueClock() {
     var canvas = document.getElementById('canvas');
     var context = canvas.getContext('2d');
