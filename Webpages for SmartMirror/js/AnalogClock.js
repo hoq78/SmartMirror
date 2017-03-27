@@ -3,7 +3,7 @@ function showAnalogueClock() {
     var context = canvas.getContext('2d');
     var date = new Date();
     var angle;
-    var secHandLength = 150;
+    var radius = 150;
     //Clear Everything and Re-Draw every second
     context.clearRect(0, 0, canvas.width, canvas.height);
     markHours();
@@ -29,10 +29,10 @@ function showAnalogueClock() {
             context.lineWidth = 3; // HAND WIDTH.
             context.beginPath();
 
-            var x1 = (canvas.width / 2) + Math.cos(angle) * (secHandLength);
-            var y1 = (canvas.height / 2) + Math.sin(angle) * (secHandLength);
-            var x2 = (canvas.width / 2) + Math.cos(angle) * (secHandLength - (secHandLength / 7));
-            var y2 = (canvas.height / 2) + Math.sin(angle) * (secHandLength - (secHandLength / 7));
+            var x1 = (canvas.width / 2) + Math.cos(angle) * (radius);
+            var y1 = (canvas.height / 2) + Math.sin(angle) * (radius);
+            var x2 = (canvas.width / 2) + Math.cos(angle) * (radius - (radius / 7));
+            var y2 = (canvas.height / 2) + Math.sin(angle) * (radius - (radius / 7));
 
             context.moveTo(x1, y1);
             context.lineTo(x2, y2);
@@ -52,8 +52,8 @@ function showAnalogueClock() {
         // START FROM CENTER OF THE CLOCK.
         context.moveTo(canvas.width / 2, canvas.height / 2);
         // DRAW THE LENGTH.
-        context.lineTo((canvas.width / 2 + Math.cos(angle) * secHandLength),
-            canvas.height / 2 + Math.sin(angle) * secHandLength);
+        context.lineTo((canvas.width / 2 + Math.cos(angle) * radius),
+            canvas.height / 2 + Math.sin(angle) * radius);
 
         // DRAW THE TAIL OF THE SECONDS HAND.
         context.moveTo(canvas.width / 2, canvas.height / 2); // START FROM CENTER.
@@ -74,8 +74,8 @@ function showAnalogueClock() {
         context.beginPath();
         context.moveTo(canvas.width / 2, canvas.height / 2); // START FROM CENTER.
         // DRAW THE LENGTH.
-        context.lineTo((canvas.width / 2 + Math.cos(angle) * secHandLength / 1.1),
-            canvas.height / 2 + Math.sin(angle) * secHandLength / 1.1);
+        context.lineTo((canvas.width / 2 + Math.cos(angle) * radius / 1.1),
+            canvas.height / 2 + Math.sin(angle) * radius / 1.1);
 
         context.strokeStyle = '#FFFFFF'; // COLOR OF THE HAND.
         context.stroke();
@@ -91,8 +91,8 @@ function showAnalogueClock() {
         context.beginPath();
         context.moveTo(canvas.width / 2, canvas.height / 2); // START FROM CENTER.
         // DRAW THE LENGTH.
-        context.lineTo((canvas.width / 2 + Math.cos(angle) * secHandLength / 1.5),
-            canvas.height / 2 + Math.sin(angle) * secHandLength / 1.5);
+        context.lineTo((canvas.width / 2 + Math.cos(angle) * radius / 1.5),
+            canvas.height / 2 + Math.sin(angle) * radius / 1.5);
 
         context.strokeStyle = '#FFF'; // COLOR OF THE HAND.
         context.stroke();
