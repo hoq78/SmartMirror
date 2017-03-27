@@ -1,8 +1,8 @@
 function showDigitalClock() {
-    var dt = new Date() // DATE() CONSTRUCTOR FOR CURRENT SYSTEM DATE AND TIME.
-    var hrs = dt.getHours();
-    var min = dt.getMinutes();
-    var sec = dt.getSeconds();
+    var dateObject = new Date() // DATE() CONSTRUCTOR FOR CURRENT SYSTEM DATE AND TIME.
+    var hrs = dateObject.getHours();
+    var min = dateObject.getMinutes();
+    var sec = dateObject.getSeconds();
 
     min = Ticking(min); //pads the time to 2 digits when the time is less than 2 digits long
     sec = Ticking(sec);

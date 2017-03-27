@@ -24,8 +24,8 @@ function showAnalogueClock() {
     }
 
     function markHours() {
-        for (var i = 0; i < 12; i++) {
-            angle = (i - 3) * (Math.PI * 2) / 12; // THE ANGLE TO MARK.
+        for (var hour = 0; hour < 12; hour++) {
+            angle = (hour - 3) * (Math.PI * 2) / 12; // THE ANGLE TO MARK.
             context.lineWidth = 3; // HAND WIDTH.
             context.beginPath();
 
