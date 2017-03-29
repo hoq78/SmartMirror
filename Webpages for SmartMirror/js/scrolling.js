@@ -1,7 +1,7 @@
 ScrollRate = config.news.scrollRate || 100;
 
 function scrollDiv_init() {
-	DivElmnt = document.getElementById('newsContent');
+	DivElmnt = document.getElementById('detailContent');
 	ReachedMaxScroll = false;
 
 	DivElmnt.scrollTop = 0;

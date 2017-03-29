@@ -170,7 +170,7 @@ html, body {
     font-size: large;
 }
 
-#newsContent {
+#detailContent {
     position: absolute;
     top: 50px;
     width: 100%;
