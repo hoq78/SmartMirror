@@ -1,7 +1,10 @@
 #JSGF V1.0;
 grammar VoiceRecognition;
-public <topRule> = <rule0>;
+public <topRule> = <rule0> | <rule1> | <rule2> | <rule3> | <rule4>;
 
-<VoiceRecognition_placeType> = (home) | (weather) | (mail) | (calendar);
 
-<rule0> = show <VoiceRecognition_placeType>;
+<rule0> = (show home);
+<rule1> = (show mail);
+<rule2> = (show calendar);
+<rule3> = (show weather);
+<rule4> = (show news);

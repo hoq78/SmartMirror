@@ -1,14 +1,20 @@
-#placeType() = [home] | [weather] | [mail] | [calendar];
+[show home];
 @results
-	0 { "home" }
-	1 { "weather" }
-	2 { "mail" }
-	3 { "calendar" }
+    0 {'show("home")'}
 @
-
-show #placeType;
+[show mail];
 @results
-	#placeType { 'show("' #placeType'")' }
+    0 {'show("mail")'}
 @
-
-
+[show calendar];
+@results
+    0 {'show("calendar")'}
+@
+[show weather];
+@results
+    0 {'show("weather")'}
+@
+[show news];
+@results
+    0 {'show("news")'}
+@

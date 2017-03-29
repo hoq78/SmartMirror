@@ -1,23 +1,27 @@
 from SpeakPython.SpeakPythonRecognizer import SpeakPythonRecognizer
 from chromote import Chromote
+from time import sleep
 
 chrome = Chromote()
 tab = chrome.tabs[0]
 
 def execute(speech):
     eval(speech)
-    print(speech)
-
+ 
 def show(speech):
-    if speech == "show home":
+    if speech == "home" and tab.url != "http:localhost/index.html":
         tab.set_url("http://localhost/index.html")
-    elif speech == "show weather":
-        tab.set_url("https://localhost/weather.html")
-    elif speech == "show news":
+        sleep(10)
+    elif speech == "weather" and tab.url != "http:localhost/weather.html":
+        tab.set_url("http://localhost/weather.html")
+        sleep(10)
+    elif speech == "news" and tab.url != "http:localhost/news.html":
         tab.set_url("http://localhost/news.html")
-    elif speech == "show calendar":
+        sleep(10)
+    elif speech == "calendar" and tab.url != "http:localhost/calendar.html":
         tab.set_url("http://localhost/calendar.html")
-    elif speech == ("show mail"):
+        sleep(10)
+    elif speech == ("mail") and tab.url != "http:localhost/mail.html":
         tab.set_url("http://localhost/mail.html")
 
 recog = SpeakPythonRecognizer(execute,"VoiceRecognition")
