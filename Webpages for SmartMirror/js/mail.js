@@ -1,10 +1,4 @@
-// clientid = '338294178289-fdhuk9lqmgaatll67u30j9675t7mtpto.apps.googleusercontent.com'
-// client secret = 'igFBr-bij2L-wPsoZwMouytS'
-// document.addEventListener('DOMContentLoaded', function() {
-//     checkAuth();
-// }, false);
-
-var CLIENT_ID = '338294178289-fdhuk9lqmgaatll67u30j9675t7mtpto.apps.googleusercontent.com';
+var CLIENT_ID = config.mail.clientid;
 var SCOPES = ['https://www.googleapis.com/auth/gmail.readonly'];
 var intervalHandle = null;
 var emailSubject = [];
@@ -14,6 +8,7 @@ var emailFrom = [];
 /**
  * Check if current user has authorized this application.
  */
+
 function checkAuth(callback) {
     gapi.auth.authorize({
         'client_id': CLIENT_ID,
@@ -27,6 +22,7 @@ function checkAuth(callback) {
  *
  * @param {Object} authResult Authorization result.
  */
+
 function handleAuthResult(callback,authResult) {
     var authorizeDiv = document.getElementById('authorize-div');
     if (authResult && !authResult.error) {
@@ -46,6 +42,7 @@ function handleAuthResult(callback,authResult) {
  *
  * @param {Event} event Button click event.
  */
+
 function handleAuthClick(event) {
     gapi.auth.authorize({
             client_id: CLIENT_ID,
@@ -56,22 +53,26 @@ function handleAuthClick(event) {
     return false;
 }
 
-/**
- * Load Gmail API client library. List labels once client library
- * is loaded.
- */
-function registerInboxInterval(x){
+function registerInboxInterval(time){
   if(intervalHandle){
     clearInterval(intervalHandle);
   }
-  intervalHandle = setInterval(inboxCount, x);
+  intervalHandle = setInterval(inboxCount, time);
 }
 
+/**
+ * Load Gmail API client library. Runs the callback function
+ * dependant on which page is loaded
+ */
+
 function loadGmailApi(callback) {
-    // gapi.client.load('gmail', 'v1', listLabels);
     gapi.client.load('gmail', 'v1', callback);
 }
 
+/**
+* Sends a request to the Google Servers to get
+* the number of unread emails in the specified inbox
+*/
 
 function inboxCount() {
     var request = gapi.client.gmail.users.labels.get({
@@ -84,6 +85,11 @@ function inboxCount() {
     });
   }
 
+/**
+* Takes the response from the Google Servers
+* and pushes all the message IDs to an array then is returned
+*/
+
 function getEmailIds(resp){
   emailIDs = [];
   for(noOfmail=0; noOfmail<config.mail.howManyEmails && noOfmail < resp.messages.length; noOfmail++){
@@ -93,8 +99,12 @@ function getEmailIds(resp){
   return emailIDs
 }
 
+/**
+* Takes the resp and looks for the Subject attribute.
+* Returns the Subject value
+*/
+
 function getSubjectHeaders(resp){
-  emailSubjects = [];
   for(i=0;i<resp.payload.headers.length;i++){
     if(resp.payload.headers[i].name == 'Subject'){
       subject = resp.payload.headers[i].value;
@@ -103,8 +113,12 @@ function getSubjectHeaders(resp){
   };
 }
 
+/**
+* Takes the Response from the server and looks for the From attribute.
+* Returns the From value
+*/
+
 function getEmailFrom(resp){
-  emailSubjects = [];
   for(i=0;i<resp.payload.headers.length;i++){
     if(resp.payload.headers[i].name == 'From'){
       from = resp.payload.headers[i].value;
@@ -113,11 +127,22 @@ function getEmailFrom(resp){
   };
 }
 
+/**
+* Checks if all the emails have been retrieved,
+* if so then display the emails
+*/
+
 function finishedAllCallbacks(){
   if(emailSubject.length == config.mail.howManyEmails){
   displayEmails();
   }
 }
+
+/**
+* Uses the empty table in the mail.html
+* generate the rows and columns in the table
+* to then use jquery to populate it using the arrays of data.
+*/
 
 function displayEmails(){
   var table = document.getElementById('emailsTable');
@@ -143,6 +168,12 @@ function displayEmails(){
   }
 }
 
+/**
+* Takes the Google Server response to push
+* all the snippets of emails to an array.
+* Returns the array.
+*/
+
 function getEmailContent(resp){
   emailContent = [];
   for(i=0; i<config.mail.howManyEmails;i++){
@@ -152,6 +183,10 @@ function getEmailContent(resp){
   return emailContent;
 }
 
+/**
+* Sends a request to the Google Servers
+* for an array of the messageIDs and threadIDS
+*/
 
 function detailedMail(){
   var request = gapi.client.gmail.users.messages.list({
@@ -166,6 +201,11 @@ function detailedMail(){
     };
   })
 }
+
+/**
+* Uses the email ids to get the content of the messages,
+* and seperates all the data into the individual arrays
+*/
 
 function getMessage(id, callback){
     var request = gapi.client.gmail.users.messages.get({

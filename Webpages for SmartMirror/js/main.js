@@ -1,16 +1,21 @@
+/**
+* Functions that run on load of each of the different pages,
+* They run all the functions required to get all the information and display it
+*/
+
 function mainPage(){
   whichClock();
   getDate();
   checkAuth(inboxCount);
   checkCalAuth(showNextEvent);
-  news.getNews(news.mainPage);
+  getNews(newsMainPage);
   weather.getWeather(weather.oneDayApiKey,weather.dashboardPage);
 }
 
 function newsPage(){
     showDigitalClock();
     getDate();
-    news.getNews(news.detailPage);
+    getNews(newsDetailPage);
     scrollDiv_init();
 }
 
