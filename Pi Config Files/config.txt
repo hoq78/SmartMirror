@@ -58,4 +58,4 @@ dtparam=audio=on
 # NOOBS Auto-generated Settings:
 hdmi_force_hotplug=1
 
-#display_rotate=1
+display_rotate=1
